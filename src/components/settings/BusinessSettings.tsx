@@ -36,17 +36,17 @@ const BusinessSettings = () => {
   
   return (
     <Card className="border border-gray-200">
-      <CardHeader>
-        <CardTitle>Business Information</CardTitle>
+      <CardHeader className="px-4 md:px-6">
+        <CardTitle className="text-lg md:text-xl">Business Information</CardTitle>
         <CardDescription>
           This information will appear on your invoices and other documents
         </CardDescription>
       </CardHeader>
       
-      <CardContent className="space-y-6">
-        <div className="flex flex-col md:flex-row gap-6">
-          <div className="md:w-1/3 flex flex-col items-center justify-center">
-            <div className="relative w-48 h-48 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-gray-50">
+      <CardContent className="space-y-4 md:space-y-6 px-4 md:px-6">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+          <div className="w-full md:w-1/3 flex flex-col items-center justify-center">
+            <div className="relative w-40 h-40 md:w-48 md:h-48 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-gray-50">
               {businessData.logo ? (
                 <img 
                   src={businessData.logo} 
@@ -55,9 +55,9 @@ const BusinessSettings = () => {
                 />
               ) : (
                 <div className="text-center p-4">
-                  <Upload className="h-10 w-10 text-gray-400 mx-auto mb-2" />
-                  <p className="text-sm text-gray-500">Upload your business logo</p>
-                  <p className="text-xs text-gray-400 mt-1">PNG, JPG or SVG (max 2MB)</p>
+                  <Upload className="h-8 w-8 md:h-10 md:w-10 text-gray-400 mx-auto mb-2" />
+                  <p className="text-xs md:text-sm text-gray-500">Upload your business logo</p>
+                  <p className="text-xs text-gray-400 mt-1 hidden md:block">PNG, JPG or SVG (max 2MB)</p>
                 </div>
               )}
             </div>
@@ -70,7 +70,7 @@ const BusinessSettings = () => {
             </Button>
           </div>
           
-          <div className="md:w-2/3 space-y-4">
+          <div className="w-full md:w-2/3 space-y-3 md:space-y-4">
             <div className="space-y-2">
               <Label htmlFor="business-name">Business Name</Label>
               <div className="relative">
@@ -85,7 +85,7 @@ const BusinessSettings = () => {
               </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
               <div className="space-y-2">
                 <Label htmlFor="business-email">Email</Label>
                 <div className="relative">
@@ -130,7 +130,7 @@ const BusinessSettings = () => {
               </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
               <div className="space-y-2">
                 <Label htmlFor="business-website">Website</Label>
                 <div className="relative">
@@ -156,7 +156,7 @@ const BusinessSettings = () => {
               </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
               <div className="space-y-2">
                 <Label htmlFor="contact-person">Contact Person</Label>
                 <div className="relative">
@@ -184,12 +184,12 @@ const BusinessSettings = () => {
           </div>
         </div>
         
-        <div className="bg-gray-50 p-4 rounded-md">
+        <div className="bg-gray-50 p-3 md:p-4 rounded-md">
           <div className="flex items-start space-x-3">
-            <Check className="h-5 w-5 text-green-500 mt-0.5" />
+            <Check className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
             <div>
               <h3 className="text-sm font-semibold">Business Profile</h3>
-              <p className="mt-1 text-sm text-gray-600">
+              <p className="mt-1 text-xs md:text-sm text-gray-600">
                 Your business information will be used on invoices, quotes, and other documents
                 sent to your clients. It's important to keep this information up to date.
               </p>

@@ -121,8 +121,8 @@ const TaxSettings = () => {
   
   return (
     <Card className="border border-gray-200">
-      <CardHeader>
-        <CardTitle className="flex items-center">
+      <CardHeader className="px-4 md:px-6">
+        <CardTitle className="flex items-center text-lg md:text-xl">
           <DollarSign className="h-5 w-5 mr-2 text-gray-500" />
           Tax Settings
         </CardTitle>
@@ -131,13 +131,13 @@ const TaxSettings = () => {
         </CardDescription>
       </CardHeader>
       
-      <CardContent className="space-y-6">
-        <div className="bg-gray-50 p-4 rounded-md">
+      <CardContent className="space-y-4 md:space-y-6 px-4 md:px-6">
+        <div className="bg-gray-50 p-3 md:p-4 rounded-md">
           <div className="flex items-start space-x-3">
-            <Info className="h-5 w-5 text-blue-500 mt-0.5" />
+            <Info className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
             <div>
               <h3 className="text-sm font-semibold">About Tax Settings</h3>
-              <p className="mt-1 text-sm text-gray-600">
+              <p className="mt-1 text-xs md:text-sm text-gray-600">
                 Configure tax rules to automatically calculate taxes on your invoices.
                 The default tax rule will be applied when creating new invoices unless
                 you select a different rule.
@@ -147,7 +147,7 @@ const TaxSettings = () => {
         </div>
         
         <div>
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-3 md:mb-4">
             <h3 className="text-md font-medium">Tax Rules</h3>
             <Button 
               variant="outline" 
@@ -156,34 +156,35 @@ const TaxSettings = () => {
               className="flex items-center"
             >
               <Plus className="h-4 w-4 mr-1" />
-              Add New Rule
+              <span className="hidden sm:inline">Add New Rule</span>
+              <span className="sm:hidden">Add</span>
             </Button>
           </div>
           
-          <div className="rounded-md border overflow-hidden">
-            <div className="bg-gray-50 px-4 py-3 text-sm font-medium grid grid-cols-12 gap-2">
+          <div className="rounded-md border overflow-hidden overflow-x-auto">
+            <div className="bg-gray-50 p-2 md:p-3 text-xs md:text-sm font-medium grid grid-cols-12 gap-2">
               <div className="col-span-3">Name</div>
               <div className="col-span-2">Rate (%)</div>
-              <div className="col-span-2">Type</div>
-              <div className="col-span-2">Country</div>
-              <div className="col-span-1 text-center">Default</div>
-              <div className="col-span-2 text-right">Actions</div>
+              <div className="col-span-2 hidden md:block">Type</div>
+              <div className="col-span-2 hidden md:block">Country</div>
+              <div className="col-span-2 md:col-span-1 text-center">Default</div>
+              <div className="col-span-5 md:col-span-2 text-right">Actions</div>
             </div>
             
             {taxRules.map(rule => (
               <div 
                 key={rule.id} 
-                className="px-4 py-3 border-t grid grid-cols-12 gap-2 items-center text-sm"
+                className="p-2 md:p-3 border-t grid grid-cols-12 gap-2 items-center text-xs md:text-sm"
               >
                 <div className="col-span-3 font-medium">{rule.name}</div>
                 <div className="col-span-2">{rule.rate}%</div>
-                <div className="col-span-2">
+                <div className="col-span-2 hidden md:block">
                   {rule.type === 'vat' ? 'VAT' : rule.type === 'gst' ? 'GST' : 'Custom'}
                 </div>
-                <div className="col-span-2">{rule.country}</div>
-                <div className="col-span-1 text-center">
+                <div className="col-span-2 hidden md:block">{rule.country}</div>
+                <div className="col-span-2 md:col-span-1 text-center">
                   {rule.default ? (
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                       Default
                     </span>
                   ) : (
@@ -191,43 +192,46 @@ const TaxSettings = () => {
                       className="text-xs text-gray-500 hover:text-brand-primary"
                       onClick={() => setAsDefault(rule.id)}
                     >
-                      Set Default
+                      Set
                     </button>
                   )}
                 </div>
-                <div className="col-span-2 text-right">
+                <div className="col-span-5 md:col-span-2 text-right">
                   <button
                     onClick={() => deleteTaxRule(rule.id)}
                     className="text-gray-500 hover:text-red-500"
                     disabled={rule.default}
                     title={rule.default ? "Cannot delete default tax rule" : "Delete"}
                   >
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2 className="h-4 w-4 inline-block" />
+                    <span className="ml-1 hidden sm:inline-block">Delete</span>
                   </button>
                 </div>
               </div>
             ))}
             
             {isAddingNew && (
-              <div className="px-4 py-3 border-t grid grid-cols-12 gap-2 items-center text-sm bg-gray-50">
-                <div className="col-span-3">
+              <div className="p-2 md:p-3 border-t grid grid-cols-1 md:grid-cols-12 gap-2 items-center text-xs md:text-sm bg-gray-50">
+                <div className="md:col-span-3 mb-2 md:mb-0">
                   <Input 
                     placeholder="Tax Name"
                     name="name"
                     value={newTaxRule.name}
                     onChange={handleInputChange}
+                    size={1}
                   />
                 </div>
-                <div className="col-span-2">
+                <div className="md:col-span-2 mb-2 md:mb-0">
                   <Input 
                     type="number"
                     placeholder="Rate"
                     name="rate"
                     value={newTaxRule.rate.toString()}
                     onChange={handleInputChange}
+                    size={1}
                   />
                 </div>
-                <div className="col-span-2">
+                <div className="md:col-span-2 mb-2 md:mb-0">
                   <Select 
                     value={newTaxRule.type}
                     onValueChange={(value) => handleSelectChange('type', value)}
@@ -243,51 +247,49 @@ const TaxSettings = () => {
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="col-span-2">
+                <div className="md:col-span-2 mb-2 md:mb-0">
                   <Input 
                     placeholder="Country"
                     name="country"
                     value={newTaxRule.country}
                     onChange={handleInputChange}
+                    size={1}
                   />
                 </div>
-                <div className="col-span-1 text-center">
-                  <div className="flex items-center justify-center">
-                    <input
-                      type="checkbox"
-                      id="default-tax"
-                      className="h-4 w-4 text-brand-primary focus:ring-brand-primary border-gray-300 rounded"
-                      checked={newTaxRule.default}
-                      onChange={() => setNewTaxRule({...newTaxRule, default: !newTaxRule.default})}
-                    />
-                  </div>
+                <div className="md:col-span-1 flex items-center justify-center mb-2 md:mb-0">
+                  <input
+                    type="checkbox"
+                    id="default-tax"
+                    className="h-4 w-4 text-brand-primary focus:ring-brand-primary border-gray-300 rounded"
+                    checked={newTaxRule.default}
+                    onChange={() => setNewTaxRule({...newTaxRule, default: !newTaxRule.default})}
+                  />
+                  <label htmlFor="default-tax" className="ml-1 md:hidden">Default</label>
                 </div>
-                <div className="col-span-2 text-right">
-                  <div className="flex items-center justify-end space-x-2">
-                    <Button 
-                      variant="ghost" 
-                      size="sm"
-                      onClick={() => setIsAddingNew(false)}
-                    >
-                      Cancel
-                    </Button>
-                    <Button 
-                      size="sm"
-                      onClick={addTaxRule}
-                    >
-                      Add
-                    </Button>
-                  </div>
+                <div className="md:col-span-2 flex items-center justify-end space-x-2">
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => setIsAddingNew(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button 
+                    size="sm"
+                    onClick={addTaxRule}
+                  >
+                    Add
+                  </Button>
                 </div>
               </div>
             )}
           </div>
         </div>
         
-        <div className="pt-4">
-          <h3 className="text-md font-medium mb-4">Tax Number Display</h3>
+        <div className="pt-3 md:pt-4">
+          <h3 className="text-md font-medium mb-3 md:mb-4">Tax Number Display</h3>
           
-          <div className="space-y-4">
+          <div className="space-y-3 md:space-y-4">
             <div className="space-y-2">
               <Label htmlFor="vat-number">VAT/GST Number</Label>
               <Input 
@@ -323,7 +325,7 @@ const TaxSettings = () => {
           </div>
         </div>
         
-        <div className="pt-4">
+        <div className="pt-3 md:pt-4">
           <Button onClick={() => setIsAddingNew(true)} className="w-full flex items-center justify-center" variant="outline">
             <PlusCircle className="h-4 w-4 mr-2" />
             Add Another Tax Rule
@@ -331,7 +333,7 @@ const TaxSettings = () => {
         </div>
       </CardContent>
       
-      <CardFooter className="border-t px-6 py-4">
+      <CardFooter className="border-t px-4 py-3 md:px-6 md:py-4">
         <Button onClick={saveChanges} className="ml-auto">
           Save Tax Settings
         </Button>
