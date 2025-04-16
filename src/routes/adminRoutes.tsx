@@ -1,8 +1,8 @@
 
 import { RouteObject } from "react-router-dom";
-import { AdminLayout } from "@/components/admin/AdminLayout";
 import AdminLogin from "@/pages/admin/Login";
 import AdminDashboard from "@/pages/admin/Dashboard";
+import { AdminLayout } from "@/components/admin/AdminLayout";
 
 export const adminRoutes: RouteObject[] = [
   {

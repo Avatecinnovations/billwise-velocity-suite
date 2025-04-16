@@ -1,8 +1,10 @@
+
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { APP_LOGO, APP_LOGO_ALT } from "@/lib/constants";
+import { Logo } from "@/assets/images/logo";
+import { APP_NAME } from "@/lib/constants";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -13,7 +15,10 @@ export function Navbar() {
       <div className="container-custom flex justify-between items-center">
         <div className="flex items-center">
           <Link to="/" className="flex items-center">
-            <img src={APP_LOGO} alt={APP_LOGO_ALT} className="h-10 w-auto" />
+            <Logo className="h-8 md:h-10 w-auto" />
+            <span className="ml-2 font-medium text-white text-lg hidden md:block">
+              {APP_NAME}
+            </span>
           </Link>
         </div>
 

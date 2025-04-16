@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -22,6 +23,7 @@ import {
 } from "lucide-react";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import { Logo } from "@/assets/images/logo";
+import { APP_NAME } from "@/lib/constants";
 
 const UserIcon = () => (
   <svg
@@ -59,22 +61,23 @@ const TopNavbar = () => {
   };
 
   return (
-    <div className="h-16 border-b bg-white flex items-center justify-between px-6">
+    <div className="h-16 border-b bg-white flex items-center justify-between px-4 md:px-6">
       {/* Logo */}
       <div className="flex items-center">
         <Link to="/" className="flex items-center">
-          <Logo className="h-10 w-auto" />
+          <Logo className="h-8 md:h-10 w-auto" />
+          <span className="ml-2 font-medium text-lg hidden md:block">{APP_NAME}</span>
         </Link>
       </div>
 
       {/* Search Bar */}
-      <form onSubmit={handleSearch} className="flex-1 max-w-md">
+      <form onSubmit={handleSearch} className="flex-1 max-w-xs md:max-w-md mx-4">
         <div className="relative">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
           <Input
             type="search"
             placeholder="Search..."
-            className="pl-8"
+            className="pl-8 w-full"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -82,7 +85,7 @@ const TopNavbar = () => {
       </form>
 
       {/* Right Side Actions */}
-      <div className="ml-auto flex items-center space-x-4">
+      <div className="flex items-center space-x-2 md:space-x-4">
         {/* Notifications */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -93,7 +96,7 @@ const TopNavbar = () => {
               </span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-80">
+          <DropdownMenuContent align="end" className="w-[280px] md:w-80">
             <DropdownMenuLabel>Notifications</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="flex items-start gap-2">
