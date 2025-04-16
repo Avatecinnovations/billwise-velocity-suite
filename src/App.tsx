@@ -38,7 +38,8 @@ import AdminUsers from "@/pages/admin/Users";
 import AdminInvoices from "@/pages/admin/Invoices";
 import AdminReports from "@/pages/admin/Reports";
 import AdminSettings from "@/pages/admin/Settings";
-import { TestConnection } from "@/components/TestConnection";
+import AgedBalance from "@/pages/AgedBalance";
+import InvoiceDetails from "@/pages/InvoiceDetails";
 
 const App = () => {
   return (
@@ -72,8 +73,10 @@ const App = () => {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/clients" element={<Clients />} />
                 <Route path="/clients/new" element={<NewClient />} />
+                <Route path="/clients/aged-balance" element={<AgedBalance />} />
                 <Route path="/invoices" element={<Invoices />} />
                 <Route path="/invoices/new" element={<CreateInvoice />} />
+                <Route path="/invoices/:id" element={<InvoiceDetails />} />
                 <Route path="/quotes" element={<Quotes />} />
                 <Route path="/quotes/new" element={<CreateQuote />} />
                 <Route path="/reports" element={<Reports />} />
@@ -97,7 +100,6 @@ const App = () => {
           </Routes>
         </Router>
       </OnboardingProvider>
-      <TestConnection />
     </AuthProvider>
   );
 };

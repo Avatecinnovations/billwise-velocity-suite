@@ -413,8 +413,8 @@ const Onboarding = () => {
                     step === currentStep
                       ? "bg-blue-600 text-white"
                       : step < currentStep
-                      ? "bg-green-500 text-white"
-                      : "bg-gray-200 text-gray-600"
+                        ? "bg-green-500 text-white"
+                        : "bg-gray-200 text-gray-600"
                   }`}
                 >
                   {step < currentStep ? (

@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  BarChart,
+import { 
+  BarChart, 
   Home,
   ShoppingBag,
   Package,
   FileText,
-  PieChart,
+  PieChart, 
   Store,
   Percent,
   Search,
-  Bell,
+  Bell, 
   MoreVertical,
   Download,
   Plus,
@@ -172,10 +172,10 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col gap-8">
       <header className="flex items-center justify-between">
-        <div>
+                <div>
           <h1 className="text-2xl font-semibold">Dashboard</h1>
           <p className="text-sm text-gray-500">Welcome back, {user?.email}</p>
-        </div>
+                </div>
         <div className="flex items-center gap-4">
           <Button variant="outline" className="gap-2">
             <Download className="h-4 w-4" />
@@ -208,8 +208,8 @@ export default function Dashboard() {
           title="Overdue Invoices"
           value="7"
           change={{ value: "2.3%", trend: "up" }}
-        />
-      </div>
+            />
+          </div>
 
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
@@ -228,7 +228,7 @@ export default function Dashboard() {
               <Plus className="h-4 w-4" />
               New Invoice
             </Button>
-          </div>
+              </div>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
@@ -259,59 +259,59 @@ export default function Dashboard() {
           </div>
 
           <div className="rounded-md border">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Invoice
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Client
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Invoice
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Client
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Issue Date
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Due Date
-                  </th>
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Due Date
+                      </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Amount
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Status
+                      </th>
                   <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
                 {invoices.map((invoice) => (
                   <tr key={invoice.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center gap-2">
                         <FileText className="h-4 w-4 text-gray-500" />
                         <span className="font-medium">{invoice.id}</span>
-                      </div>
+              </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         <div className="font-medium">{invoice.client}</div>
                         <div className="text-sm text-gray-500">
                           {invoice.email}
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+      </div>
+    </div>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {invoice.date}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {invoice.date}
-                    </td>
+      </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       {invoice.amount}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
                       <Badge
                         variant={
                           invoice.status === "paid"
@@ -329,8 +329,8 @@ export default function Dashboard() {
                       <Button variant="ghost" size="icon">
                         <MoreVertical className="h-4 w-4" />
                       </Button>
-                    </td>
-                  </tr>
+      </td>
+    </tr>
                 ))}
               </tbody>
             </table>

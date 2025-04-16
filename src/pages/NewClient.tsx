@@ -1,9 +1,14 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { BadgeCustom } from "@/components/ui/badge-custom";
+import { clientService } from "@/integrations/supabase/services/clientService";
+import { toast } from "sonner";
+import { useAuth } from "@/contexts/AuthContext";
 
 const NewClient = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -27,10 +32,34 @@ const NewClient = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Handle form submission
-    console.log(formData);
+    if (!user) {
+      toast.error("You must be logged in to create a client");
+      return;
+    }
+
+    try {
+      const newClient = await clientService.createClient({
+        user_id: user.id,
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        address: formData.address,
+        city: formData.city,
+        state: formData.state,
+        postal_code: formData.zipCode,
+        country: formData.country,
+        tax_id: formData.taxId,
+        notes: formData.notes,
+      });
+
+      toast.success("Client created successfully");
+      navigate("/clients");
+    } catch (error) {
+      console.error("Error creating client:", error);
+      toast.error("Failed to create client");
+    }
   };
 
   return (
