@@ -10,11 +10,14 @@ import { env } from "@/lib/config";
 let supabase;
 
 try {
+  // Access the environment variables using the correct names as defined in the config
   const supabaseUrl = env.VITE_PROJECT_URL;
   const supabaseAnonKey = env.VITE_SECRET_ANON_KEY;
 
   if (!supabaseUrl || !supabaseAnonKey) {
     console.warn("Missing Supabase environment variables, functionality may be limited");
+    console.log("Supabase URL:", supabaseUrl);
+    console.log("Supabase Anon Key:", supabaseAnonKey ? "Provided" : "Missing");
   }
 
   supabase = createClient<Database>(
@@ -25,9 +28,12 @@ try {
         persistSession: true,
         autoRefreshToken: true,
         detectSessionInUrl: true,
+        storage: localStorage
       }
     }
   );
+
+  console.log("Supabase client initialized successfully");
 } catch (error) {
   console.error("Error initializing Supabase client:", error);
   // Create a mock client for development that will not throw errors

@@ -7,8 +7,8 @@ const envSchema = z.object({
     .enum(["development", "production", "test"])
     .default("development"),
   VITE_APP_URL: z.string().url().default("http://localhost:5173"),
-  VITE_PROJECT_URL: z.string().url().default("http://localhost:8000"),
-  VITE_SECRET_ANON_KEY: z.string().default(""),
+  VITE_PROJECT_URL: z.string().default("https://jsxbdrmcysgyurgbrdxu.supabase.co"),
+  VITE_SECRET_ANON_KEY: z.string().default("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpzeGJkcm1jeXNneXVyZ2JyZHh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3MTAzMzIsImV4cCI6MjA2MDI4NjMzMn0.61QX70LaqSiS__pi14jDBKiyXxtiuUuRZNNQckWuIdk"),
   VITE_RESEND_API_KEY: z.string().default(""),
 });
 
@@ -25,8 +25,8 @@ try {
   env = {
     VITE_APP_ENV: "development",
     VITE_APP_URL: "http://localhost:5173",
-    VITE_PROJECT_URL: "http://localhost:8000", 
-    VITE_SECRET_ANON_KEY: "",
+    VITE_PROJECT_URL: "https://jsxbdrmcysgyurgbrdxu.supabase.co", 
+    VITE_SECRET_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpzeGJkcm1jeXNneXVyZ2JyZHh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3MTAzMzIsImV4cCI6MjA2MDI4NjMzMn0.61QX70LaqSiS__pi14jDBKiyXxtiuUuRZNNQckWuIdk",
     VITE_RESEND_API_KEY: "",
   };
 }
