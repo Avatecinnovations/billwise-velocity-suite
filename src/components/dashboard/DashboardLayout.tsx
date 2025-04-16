@@ -21,15 +21,7 @@ const DashboardLayout = () => {
 
   return (
     <div className="flex min-h-screen bg-background">
-      {/* Mobile Sidebar Toggle */}
-      <Button
-        variant="ghost"
-        size="icon"
-        className="fixed top-4 left-4 z-50 md:hidden"
-        onClick={() => setSidebarOpen(!sidebarOpen)}
-      >
-        {sidebarOpen ? <X className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
-      </Button>
+      {/* Mobile Sidebar Toggle - moved to TopNavbar */}
 
       {/* Sidebar */}
       <div
