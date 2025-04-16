@@ -50,6 +50,7 @@ interface FormInvoiceItem {
   quantity: number;
   unit_price: number;
   amount: number;
+  invoice_id?: string;
 }
 
 interface FormData {
@@ -202,7 +203,7 @@ const InvoiceForm = () => {
 
       const savedInvoice = await invoiceService.createInvoice(
         invoiceData,
-        items
+        items as any
       );
       toast.success("Invoice saved as draft");
       navigate(`/invoices/${savedInvoice.id}`);
@@ -239,7 +240,7 @@ const InvoiceForm = () => {
 
       const savedInvoice = await invoiceService.createInvoice(
         invoiceData,
-        items
+        items as any
       );
       toast.success("Invoice sent successfully");
       navigate(`/invoices/${savedInvoice.id}`);
@@ -265,9 +266,8 @@ const InvoiceForm = () => {
       if (!element) return;
 
       const canvas = await html2canvas(element, {
-        scale: 2,
-        useCORS: true,
         logging: false,
+        useCORS: true,
       });
 
       const imgData = canvas.toDataURL("image/png");
@@ -288,7 +288,6 @@ const InvoiceForm = () => {
     }
   };
 
-  // Add this CSS class for A4 format
   const a4Style = {
     width: "210mm",
     minHeight: "297mm",
@@ -312,12 +311,10 @@ const InvoiceForm = () => {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Invoice Form */}
           <div className="flex-1">
             <div className="bg-white rounded-lg shadow p-6">
               <h1 className="text-2xl font-bold mb-6">Create New Invoice</h1>
 
-              {/* Recurring Invoice Toggle */}
               <RecurringToggle
                 isRecurring={isRecurring}
                 setIsRecurring={setIsRecurring}
@@ -484,7 +481,6 @@ const InvoiceForm = () => {
                 </div>
               </div>
 
-              {/* Schedule Invoice */}
               <ScheduleInvoice
                 scheduleDate={scheduleDate}
                 setScheduleDate={setScheduleDate}
@@ -564,7 +560,6 @@ const InvoiceForm = () => {
                 </div>
               </div>
 
-              {/* Payment Methods */}
               <PaymentMethods
                 selectedPaymentMethods={selectedPaymentMethods}
                 togglePaymentMethod={togglePaymentMethod}
@@ -596,7 +591,6 @@ const InvoiceForm = () => {
             </div>
           </div>
 
-          {/* Invoice Settings (Conditionally Rendered) */}
           {showSettings && (
             <InvoiceSettings
               currency={currency}
@@ -615,7 +609,6 @@ const InvoiceForm = () => {
           )}
         </div>
 
-        {/* Preview Modal */}
         {showPreview && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
@@ -644,7 +637,6 @@ const InvoiceForm = () => {
                 className="print:shadow-none print:border-0"
                 id="invoice-preview"
               >
-                {/* Invoice content */}
                 <div className="mb-8">
                   <div className="flex justify-between items-start">
                     <div>
@@ -665,9 +657,6 @@ const InvoiceForm = () => {
                     </div>
                   </div>
                 </div>
-
-                {/* Rest of the preview content */}
-                {/* ... */}
               </div>
             </div>
           </div>

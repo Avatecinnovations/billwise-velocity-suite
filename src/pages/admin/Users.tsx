@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import {
   Card,
@@ -51,10 +52,11 @@ const Users = () => {
     // Add more mock users as needed
   ];
 
-  const getStatusColor = (status: string) => {
+  // Update getStatusColor to return only valid Badge variants
+  const getStatusColor = (status: string): "default" | "outline" | "destructive" | "secondary" => {
     switch (status.toLowerCase()) {
       case "active":
-        return "success";
+        return "secondary"; // changed from "success" to "secondary"
       case "inactive":
         return "destructive";
       default:

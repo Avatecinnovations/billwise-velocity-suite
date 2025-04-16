@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -43,12 +44,13 @@ const Invoices = () => {
     // Add more mock invoices as needed
   ];
 
-  const getStatusColor = (status: string) => {
+  // Update getStatusColor to return only valid Badge variants
+  const getStatusColor = (status: string): "default" | "outline" | "destructive" | "secondary" => {
     switch (status.toLowerCase()) {
       case "paid":
-        return "success";
+        return "secondary"; // changed from "success" to "secondary"
       case "pending":
-        return "warning";
+        return "outline"; // changed from "warning" to "outline"
       case "overdue":
         return "destructive";
       default:

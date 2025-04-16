@@ -42,6 +42,10 @@ interface OnboardingData {
   currency: string;
 }
 
+type HandleChangeParam = 
+  | React.ChangeEvent<HTMLInputElement> 
+  | { name: string; value: string };
+
 const INDUSTRIES = [
   "Technology",
   "Healthcare",
@@ -85,11 +89,14 @@ const Onboarding = () => {
     currency: "USD",
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | { name: string; value: string }
-  ) => {
-    const { name, value } = e;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const handleChange = (param: HandleChangeParam) => {
+    if ('target' in param) {
+      const { name, value } = param.target;
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    } else {
+      const { name, value } = param;
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleImageUpload = async (
@@ -105,14 +112,12 @@ const Onboarding = () => {
       const fileName = `${type}-${Date.now()}.${fileExt}`;
       const filePath = `${user?.id}/${fileName}`;
 
-      // Upload to Supabase Storage
       const { error: uploadError, data } = await supabase.storage
         .from("onboarding-images")
         .upload(filePath, file);
 
       if (uploadError) throw uploadError;
 
-      // Get public URL
       const { data: publicURL } = supabase.storage
         .from("onboarding-images")
         .getPublicUrl(filePath);
@@ -142,7 +147,6 @@ const Onboarding = () => {
     try {
       setLoading(true);
 
-      // Save onboarding data to Supabase
       const { error } = await supabase.from("onboarding").insert([
         {
           user_id: user?.id,
@@ -153,7 +157,6 @@ const Onboarding = () => {
 
       if (error) throw error;
 
-      // Update user metadata
       const { error: updateError } = await supabase.auth.updateUser({
         data: {
           onboarding_completed: true,
