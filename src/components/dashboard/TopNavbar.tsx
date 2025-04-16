@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Bell, Search, Settings, HelpCircle, LogOut, Menu, X } from "lucide-react";
@@ -39,14 +38,7 @@ const TopNavbar = () => {
       <div className="container flex h-16 items-center justify-between px-4">
         {/* Left side - Logo and mobile menu button */}
         <div className="flex items-center gap-2">
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className="md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
+          {/* Remove the button from TopNavbar since it's already in DashboardLayout */}
           
           <div className="flex items-center gap-2">
             {onboardingData?.logo ? (
