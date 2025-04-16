@@ -105,9 +105,6 @@ const DashboardLayout = () => {
       <div className="px-6 py-4 border-b">
         <Link to="/" className="flex items-center gap-2">
           <Logo className="h-8 w-auto" />
-          <span className="text-lg font-medium">
-            {APP_NAME}
-          </span>
         </Link>
       </div>
 
@@ -215,7 +212,6 @@ const DashboardLayout = () => {
           <div className="h-16 border-b flex items-center justify-between px-6">
             <Link to="/" className="flex items-center gap-2">
               <Logo className="h-8 w-auto" />
-              <span className="text-lg font-medium">{APP_NAME}</span>
             </Link>
             <button
               onClick={() => setSidebarOpen(false)}

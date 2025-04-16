@@ -4,7 +4,6 @@ import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Logo } from "@/assets/images/logo";
-import { APP_NAME } from "@/lib/constants";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -16,9 +15,6 @@ export function Navbar() {
         <div className="flex items-center">
           <Link to="/" className="flex items-center">
             <Logo className="h-8 md:h-10 w-auto" />
-            <span className="ml-2 font-medium text-white text-lg hidden md:block">
-              {APP_NAME}
-            </span>
           </Link>
         </div>
 

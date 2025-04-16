@@ -19,11 +19,9 @@ import {
   LogOut,
   Settings,
   HelpCircle,
-  ChevronDown,
 } from "lucide-react";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import { Logo } from "@/assets/images/logo";
-import { APP_NAME } from "@/lib/constants";
 
 const UserIcon = () => (
   <svg
@@ -47,8 +45,6 @@ const TopNavbar = () => {
   const { onboardingData } = useOnboarding();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
-  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,11 +58,10 @@ const TopNavbar = () => {
 
   return (
     <div className="h-16 border-b bg-white flex items-center justify-between px-4 md:px-6">
-      {/* Logo */}
+      {/* Logo (only shown on desktop) */}
       <div className="flex items-center">
         <Link to="/" className="flex items-center">
           <Logo className="h-8 md:h-10 w-auto" />
-          <span className="ml-2 font-medium text-lg hidden md:block">{APP_NAME}</span>
         </Link>
       </div>
 
