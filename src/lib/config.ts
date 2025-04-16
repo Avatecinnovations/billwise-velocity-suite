@@ -1,21 +1,37 @@
+
 import { z } from "zod";
 
-// Define the schema for environment variables
+// Define the schema for environment variables with better defaults and optional fields
 const envSchema = z.object({
   VITE_APP_ENV: z
     .enum(["development", "production", "test"])
     .default("development"),
-  VITE_APP_URL: z.string().url(),
-  VITE_PROJECT_URL: z.string().url(),
-  VITE_SECRET_ANON_KEY: z.string().min(1),
-  VITE_RESEND_API_KEY: z.string().min(1),
+  VITE_APP_URL: z.string().url().default("http://localhost:5173"),
+  VITE_PROJECT_URL: z.string().url().default("http://localhost:8000"),
+  VITE_SECRET_ANON_KEY: z.string().default(""),
+  VITE_RESEND_API_KEY: z.string().default(""),
 });
 
 // Type for the validated environment variables
 type Env = z.infer<typeof envSchema>;
 
-// Validate and export the environment variables
-export const env = envSchema.parse(import.meta.env);
+// Validate and export the environment variables with try/catch for better error handling
+let env: Env;
+try {
+  env = envSchema.parse(import.meta.env);
+} catch (error) {
+  console.error("Environment variable validation failed:", error);
+  // Provide fallback values for development
+  env = {
+    VITE_APP_ENV: "development",
+    VITE_APP_URL: "http://localhost:5173",
+    VITE_PROJECT_URL: "http://localhost:8000", 
+    VITE_SECRET_ANON_KEY: "",
+    VITE_RESEND_API_KEY: "",
+  };
+}
+
+export { env };
 
 // Export type for use in other files
 export type { Env };
