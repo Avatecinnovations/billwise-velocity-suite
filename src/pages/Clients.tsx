@@ -60,7 +60,7 @@ const Clients = () => {
                 placeholder="Search clients..."
               />
             </div>
-            <div className="flex flex-wrap gap-2 ml-auto">
+            <div className="flex flex-wrap gap-2 sm:ml-auto">
               <Button 
                 variant="outline" 
                 size="sm"
@@ -87,22 +87,22 @@ const Clients = () => {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Client
                 </th>
-                <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
+                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
                   Email
                 </th>
-                <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell">
+                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell">
                   Phone
                 </th>
-                <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
+                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
                   Total Invoices
                 </th>
-                <th className="px-4 md:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
@@ -154,7 +154,7 @@ const ClientTableRow = ({
 }: ClientTableRowProps) => {
   return (
     <tr className="hover:bg-gray-50">
-      <td className="px-4 md:px-6 py-4 whitespace-nowrap">
+      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
         <div className="flex items-center">
           <div className="h-8 w-8 md:h-10 md:w-10 rounded-full bg-gray-200 flex items-center justify-center">
             <Users className="h-4 w-4 md:h-5 md:w-5 text-gray-600" />
@@ -165,21 +165,21 @@ const ClientTableRow = ({
           </div>
         </div>
       </td>
-      <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">
+      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">
         {email}
       </td>
-      <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden lg:table-cell">
+      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden lg:table-cell">
         {phone}
       </td>
-      <td className="px-4 md:px-6 py-4 whitespace-nowrap">
+      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
         <BadgeCustom variant={status === "active" ? "primary" : "default"}>
           {status === "active" ? "Active" : "Inactive"}
         </BadgeCustom>
       </td>
-      <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden sm:table-cell">
+      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden sm:table-cell">
         {totalInvoices}
       </td>
-      <td className="px-4 md:px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
         <button className="text-gray-400 hover:text-gray-500">
           <MoreHorizontal className="h-5 w-5" />
         </button>

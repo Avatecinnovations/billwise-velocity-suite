@@ -1,7 +1,9 @@
 
+import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, Clock, Check, X } from "lucide-react";
+import { FileText, Clock, Check, X, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 const QuotesPage = () => {
   const quotes = [
@@ -51,7 +53,9 @@ const QuotesPage = () => {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">Quotes</h1>
-        <Button>New Quote</Button>
+        <Button asChild>
+          <Link to="/quotes/new">New Quote</Link>
+        </Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -101,19 +105,17 @@ const QuotesPage = () => {
       </div>
 
       <Card>
-        <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+        <div className="px-6 py-4 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <h2 className="font-semibold">Recent Quotes</h2>
-          <div className="relative w-64">
-            <input
+          <div className="relative w-full sm:w-64">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+              <Search className="w-4 h-4 text-gray-400" />
+            </div>
+            <Input
               type="text"
               placeholder="Search quotes..."
-              className="w-full py-2 pl-10 pr-4 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-brand-primary"
+              className="pl-10 w-full"
             />
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <svg className="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
           </div>
         </div>
         <CardContent className="p-0">
@@ -121,24 +123,24 @@ const QuotesPage = () => {
             <table className="w-full">
               <thead className="bg-gray-50 text-xs text-gray-500 uppercase tracking-wider">
                 <tr>
-                  <th className="px-6 py-3 text-left">Quote ID</th>
-                  <th className="px-6 py-3 text-left">Client</th>
-                  <th className="px-6 py-3 text-left">Date Created</th>
-                  <th className="px-6 py-3 text-left">Expiry Date</th>
-                  <th className="px-6 py-3 text-left">Amount</th>
-                  <th className="px-6 py-3 text-left">Status</th>
-                  <th className="px-6 py-3 text-left"></th>
+                  <th className="px-3 sm:px-6 py-3 text-left">Quote ID</th>
+                  <th className="px-3 sm:px-6 py-3 text-left">Client</th>
+                  <th className="px-3 sm:px-6 py-3 text-left hidden md:table-cell">Date Created</th>
+                  <th className="px-3 sm:px-6 py-3 text-left hidden lg:table-cell">Expiry Date</th>
+                  <th className="px-3 sm:px-6 py-3 text-left">Amount</th>
+                  <th className="px-3 sm:px-6 py-3 text-left">Status</th>
+                  <th className="px-3 sm:px-6 py-3 text-left"></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {quotes.map((quote, i) => (
                   <tr key={i} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 text-sm font-medium text-brand-primary">{quote.id}</td>
-                    <td className="px-6 py-4 text-sm">{quote.client}</td>
-                    <td className="px-6 py-4 text-sm">{quote.date}</td>
-                    <td className="px-6 py-4 text-sm">{quote.expiryDate}</td>
-                    <td className="px-6 py-4 text-sm font-medium">{quote.amount}</td>
-                    <td className="px-6 py-4">
+                    <td className="px-3 sm:px-6 py-4 text-sm font-medium text-brand-primary">{quote.id}</td>
+                    <td className="px-3 sm:px-6 py-4 text-sm">{quote.client}</td>
+                    <td className="px-3 sm:px-6 py-4 text-sm hidden md:table-cell">{quote.date}</td>
+                    <td className="px-3 sm:px-6 py-4 text-sm hidden lg:table-cell">{quote.expiryDate}</td>
+                    <td className="px-3 sm:px-6 py-4 text-sm font-medium">{quote.amount}</td>
+                    <td className="px-3 sm:px-6 py-4">
                       <span className={`px-2 py-1 text-xs rounded-full ${
                         quote.status === 'accepted' 
                           ? 'bg-green-100 text-green-800' 
@@ -151,7 +153,7 @@ const QuotesPage = () => {
                         {quote.status.charAt(0).toUpperCase() + quote.status.slice(1)}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-right">
+                    <td className="px-3 sm:px-6 py-4 text-right">
                       <Button variant="ghost" size="sm">View</Button>
                     </td>
                   </tr>
