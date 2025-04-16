@@ -18,17 +18,14 @@ try {
   }
 
   supabase = createClient<Database>(
-    supabaseUrl,
+    supabaseUrl || "",
     supabaseAnonKey || "",
     {
       auth: {
         persistSession: true,
         autoRefreshToken: true,
         detectSessionInUrl: true,
-      },
-      db: {
-        schema: "public",
-      },
+      }
     }
   );
 } catch (error) {
@@ -39,6 +36,8 @@ try {
     auth: {
       getUser: () => Promise.resolve({ data: { user: null }, error: null }),
       onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
+      getSession: () => Promise.resolve({ data: { session: null }, error: null }),
+      signOut: () => Promise.resolve({ error: null }),
     },
     from: () => ({
       select: () => ({ data: null, error: null }),

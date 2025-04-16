@@ -19,6 +19,7 @@ import {
   LogOut,
   Settings,
   HelpCircle,
+  Menu,
 } from "lucide-react";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import { Logo } from "@/assets/images/logo";
@@ -45,6 +46,7 @@ const TopNavbar = () => {
   const { onboardingData } = useOnboarding();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,9 +67,9 @@ const TopNavbar = () => {
         </Link>
       </div>
 
-      {/* Search Bar */}
-      <form onSubmit={handleSearch} className="flex-1 max-w-xs md:max-w-md mx-4">
-        <div className="relative">
+      {/* Search Bar - Hidden on mobile, shown on larger screens */}
+      <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-xs md:max-w-md mx-4">
+        <div className="relative w-full">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
           <Input
             type="search"
@@ -79,8 +81,18 @@ const TopNavbar = () => {
         </div>
       </form>
 
-      {/* Right Side Actions */}
-      <div className="flex items-center space-x-2 md:space-x-4">
+      {/* Mobile menu button - only visible on mobile */}
+      <Button 
+        variant="ghost" 
+        size="icon" 
+        className="md:hidden"
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+      >
+        <Menu className="h-5 w-5" />
+      </Button>
+
+      {/* Right Side Actions - Hidden on mobile, shown via dropdown */}
+      <div className="hidden md:flex items-center space-x-2 md:space-x-4">
         {/* Notifications */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -156,6 +168,44 @@ const TopNavbar = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+
+      {/* Mobile menu - shown when menu button is clicked */}
+      {mobileMenuOpen && (
+        <div className="absolute top-16 left-0 right-0 bg-white border-b border-gray-200 shadow-lg z-50 md:hidden">
+          <div className="px-4 py-3">
+            <form onSubmit={handleSearch} className="mb-3">
+              <div className="relative">
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+                <Input
+                  type="search"
+                  placeholder="Search..."
+                  className="pl-8 w-full"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+            </form>
+            
+            <div className="space-y-2">
+              <Link to="/settings" className="flex items-center py-2">
+                <Settings className="mr-2 h-4 w-4" />
+                Settings
+              </Link>
+              <Link to="/help" className="flex items-center py-2">
+                <HelpCircle className="mr-2 h-4 w-4" />
+                Help
+              </Link>
+              <button 
+                onClick={handleSignOut}
+                className="flex items-center py-2 w-full text-left"
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                Sign out
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

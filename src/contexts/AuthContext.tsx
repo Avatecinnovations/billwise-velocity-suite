@@ -1,3 +1,4 @@
+
 import React, {
   createContext,
   useContext,
@@ -6,7 +7,7 @@ import React, {
   ReactNode,
 } from "react";
 import { Session, User } from "@supabase/supabase-js";
-import { supabase } from "../integrations/supabase/client";
+import { supabase } from "./integrations/supabase/client";
 
 // User role definitions
 export type UserRole = "admin" | "accountant" | "client" | "regular";
@@ -109,32 +110,49 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
 
     // Check for existing session
-    supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
-      setSession(currentSession);
+    const getInitialSession = async () => {
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        
+        if (error) {
+          console.error("Error getting session:", error);
+          setLoading(false);
+          return;
+        }
+        
+        const currentSession = data.session;
+        
+        setSession(currentSession);
 
-      if (currentSession?.user) {
-        const extendedUser: ExtendedUser = {
-          ...currentSession.user,
-          role:
-            (currentSession.user.user_metadata?.role as UserRole) || "regular",
-          onboardingCompleted:
-            currentSession.user.user_metadata?.onboardingCompleted || false,
-          businessName: currentSession.user.user_metadata?.businessName,
-          currency: currentSession.user.user_metadata?.currency,
-          industry: currentSession.user.user_metadata?.industry,
-        };
-        setUser(extendedUser);
-        setUserRole(extendedUser.role || null);
-        setOnboardingCompleted(!!extendedUser.onboardingCompleted);
-      } else {
-        setUser(null);
-        setUserRole(null);
-        setOnboardingCompleted(false);
+        if (currentSession?.user) {
+          const extendedUser: ExtendedUser = {
+            ...currentSession.user,
+            role:
+              (currentSession.user.user_metadata?.role as UserRole) || "regular",
+            onboardingCompleted:
+              currentSession.user.user_metadata?.onboardingCompleted || false,
+            businessName: currentSession.user.user_metadata?.businessName,
+            currency: currentSession.user.user_metadata?.currency,
+            industry: currentSession.user.user_metadata?.industry,
+          };
+          setUser(extendedUser);
+          setUserRole(extendedUser.role || null);
+          setOnboardingCompleted(!!extendedUser.onboardingCompleted);
+        } else {
+          setUser(null);
+          setUserRole(null);
+          setOnboardingCompleted(false);
+        }
+
+        setIsAdmin(false);
+      } catch (error) {
+        console.error("Error checking session:", error);
+      } finally {
+        setLoading(false);
       }
+    };
 
-      setIsAdmin(false);
-      setLoading(false);
-    });
+    getInitialSession();
 
     return () => {
       subscription.unsubscribe();
