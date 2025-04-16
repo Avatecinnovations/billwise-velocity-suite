@@ -21,8 +21,6 @@ const DashboardLayout = () => {
 
   return (
     <div className="flex min-h-screen bg-background">
-      {/* Mobile Sidebar Toggle - moved to TopNavbar */}
-
       {/* Sidebar */}
       <div
         className={`fixed inset-y-0 left-0 z-40 w-64 transform transition-transform duration-200 ease-in-out md:translate-x-0 ${
@@ -34,7 +32,7 @@ const DashboardLayout = () => {
 
       {/* Main Content */}
       <div className="flex-1 md:pl-64">
-        <TopNavbar />
+        <TopNavbar onMenuToggle={() => setSidebarOpen(!sidebarOpen)} isSidebarOpen={sidebarOpen} />
         <main className="pt-16 min-h-screen">
           <div className="container mx-auto p-4 md:p-6">
             <Outlet />

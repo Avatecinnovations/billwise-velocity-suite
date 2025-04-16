@@ -14,14 +14,19 @@ import { useOnboarding } from "@/contexts/OnboardingContext";
 import { UserIcon } from "@/components/UserIcon";
 import { useAuth } from "@/contexts/AuthContext";
 
-const TopNavbar = () => {
+interface TopNavbarProps {
+  onMenuToggle: () => void;
+  isSidebarOpen: boolean;
+}
+
+const TopNavbar = ({ onMenuToggle, isSidebarOpen }: TopNavbarProps) => {
   const navigate = useNavigate();
   const { onboardingData } = useOnboarding();
   const { signOut } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchBarOpen, setSearchBarOpen] = useState(false);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,9 +48,9 @@ const TopNavbar = () => {
             variant="ghost" 
             size="icon" 
             className="md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={onMenuToggle}
           >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {isSidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
           
           <div className="flex items-center gap-2">
@@ -74,6 +79,16 @@ const TopNavbar = () => {
             />
           </form>
         </div>
+
+        {/* Mobile search button */}
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          className="md:hidden"
+          onClick={() => setSearchBarOpen(!searchBarOpen)}
+        >
+          <Search className="h-5 w-5" />
+        </Button>
 
         {/* Right side - Actions */}
         <div className="flex items-center gap-2 md:gap-4">
@@ -140,7 +155,7 @@ const TopNavbar = () => {
       </div>
       
       {/* Mobile search bar */}
-      {mobileMenuOpen && (
+      {searchBarOpen && (
         <div className="px-4 pb-4 md:hidden">
           <form onSubmit={handleSearch} className="relative w-full">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
