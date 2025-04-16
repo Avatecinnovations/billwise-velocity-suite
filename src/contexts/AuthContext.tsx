@@ -7,7 +7,7 @@ import React, {
   ReactNode,
 } from "react";
 import { Session, User } from "@supabase/supabase-js";
-import { supabase } from "./integrations/supabase/client";
+import { supabase } from "@/integrations/supabase/client";
 
 // User role definitions
 export type UserRole = "admin" | "accountant" | "client" | "regular";
