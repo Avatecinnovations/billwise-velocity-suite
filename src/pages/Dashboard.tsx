@@ -1,14 +1,8 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { 
-  BarChart, 
-  Home,
-  ShoppingBag,
-  Package,
   FileText,
-  PieChart, 
-  Store,
-  Percent,
   Search,
   Bell, 
   MoreVertical,
@@ -56,63 +50,6 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, change }) => {
   );
 };
 
-interface InvoiceRowProps {
-  id: string;
-  client: string;
-  amount: number;
-  status: "paid" | "pending" | "overdue";
-  dueDate: string;
-}
-
-const InvoiceRow: React.FC<InvoiceRowProps> = ({
-  id,
-  client,
-  amount,
-  status,
-  dueDate,
-}) => {
-  const statusColors = {
-    paid: "bg-green-100 text-green-800",
-    pending: "bg-yellow-100 text-yellow-800",
-    overdue: "bg-red-100 text-red-800",
-  };
-
-  return (
-    <tr className="border-b hover:bg-gray-50">
-      <td className="py-4 pl-4">
-        <input type="checkbox" className="rounded border-gray-300" />
-      </td>
-      <td className="py-4 font-medium">
-        <div className="flex items-center gap-2">
-          <FileText className="h-4 w-4 text-gray-500" />
-          {id}
-        </div>
-      </td>
-      <td className="py-4">{client}</td>
-      <td className="py-4">${amount.toFixed(2)}</td>
-      <td className="py-4">
-        <Badge
-          variant={
-            status === "paid"
-              ? "default"
-              : status === "pending"
-              ? "secondary"
-              : "destructive"
-          }
-        >
-          {status.charAt(0).toUpperCase() + status.slice(1)}
-        </Badge>
-      </td>
-      <td className="py-4">{new Date(dueDate).toLocaleDateString()}</td>
-      <td className="py-4 pr-4">
-        <Button variant="ghost" size="icon">
-          <MoreVertical className="h-4 w-4" />
-        </Button>
-      </td>
-    </tr>
-  );
-};
-
 interface Tab {
   label: string;
   count?: number;
@@ -140,7 +77,7 @@ const invoices: Invoice[] = [
   {
     id: "INV-0001",
     client: "Ethan Mitchell",
-    email: "@ethanmitchell@gmail.com",
+    email: "ethanmitchell@gmail.com",
     date: "20 Nov, 2023",
     amount: "$632",
     status: "paid",
@@ -148,7 +85,7 @@ const invoices: Invoice[] = [
   {
     id: "INV-0002",
     client: "Adrian Carter",
-    email: "@adriancarter@gmail.com",
+    email: "adriancarter@gmail.com",
     date: "21 Nov, 2023",
     amount: "$632",
     status: "pending",
@@ -156,39 +93,37 @@ const invoices: Invoice[] = [
   {
     id: "INV-0003",
     client: "Marcus Turner",
-    email: "@marcusturner@gmail.com",
+    email: "marcusturner@gmail.com",
     date: "22 Nov, 2023",
     amount: "$632",
     status: "overdue",
   },
-  // Add more invoices as needed
 ];
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("all");
-  const [selectedInvoices, setSelectedInvoices] = useState<string[]>([]);
   const { user } = useAuth();
 
   return (
-    <div className="flex flex-col gap-8">
-      <header className="flex items-center justify-between">
-                <div>
-          <h1 className="text-2xl font-semibold">Dashboard</h1>
+    <div className="flex flex-col gap-6">
+      <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 className="text-xl sm:text-2xl font-semibold">Dashboard</h1>
           <p className="text-sm text-gray-500">Welcome back, {user?.email}</p>
-                </div>
-        <div className="flex items-center gap-4">
-          <Button variant="outline" className="gap-2">
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <Button variant="outline" className="h-9 gap-1.5" size="sm">
             <Download className="h-4 w-4" />
-            Download Report
+            <span className="hidden sm:inline">Report</span>
           </Button>
-          <Button className="gap-2">
+          <Button className="h-9 gap-1.5" size="sm">
             <Plus className="h-4 w-4" />
-            New Invoice
+            <span className="hidden sm:inline">New Invoice</span>
           </Button>
         </div>
       </header>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <MetricCard
           title="Total Revenue"
           value="$45,231.89"
@@ -208,31 +143,31 @@ export default function Dashboard() {
           title="Overdue Invoices"
           value="7"
           change={{ value: "2.3%", trend: "up" }}
-            />
-          </div>
+        />
+      </div>
 
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+        <CardHeader className="flex flex-col space-y-3 sm:flex-row sm:items-center sm:justify-between sm:space-y-0 pb-4">
           <div>
             <CardTitle>Invoices</CardTitle>
             <p className="text-sm text-gray-500 mt-1">
               Manage and track all your invoices
             </p>
           </div>
-          <div className="flex items-center gap-4">
-            <Button variant="outline" className="gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <Button variant="outline" className="h-9 gap-1.5" size="sm">
               <Download className="h-4 w-4" />
-              Export
+              <span className="hidden sm:inline">Export</span>
             </Button>
-            <Button className="gap-2">
+            <Button className="h-9 gap-1.5" size="sm">
               <Plus className="h-4 w-4" />
-              New Invoice
+              <span className="hidden sm:inline">New Invoice</span>
             </Button>
-              </div>
+          </div>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-            <div className="w-full md:w-72 relative">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
+            <div className="w-full sm:w-72 relative">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
               <Input
                 type="search"
@@ -240,15 +175,15 @@ export default function Dashboard() {
                 className="pl-8"
               />
             </div>
-            <div className="flex flex-wrap gap-2">
-              <Button variant="outline" size="sm" className="gap-2">
-                <Filter className="h-4 w-4" />
+            <div className="flex flex-wrap gap-2 sm:ml-auto">
+              <Button variant="outline" size="sm" className="h-8 gap-1.5">
+                <Filter className="h-3.5 w-3.5" />
                 Filter
               </Button>
-              <Button variant="outline" size="sm" className="gap-2">
+              <Button variant="outline" size="sm" className="h-8">
                 Sort
               </Button>
-              <select className="h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm">
+              <select className="h-8 rounded-md border border-input bg-background px-3 py-1 text-xs sm:text-sm shadow-sm">
                 <option>All Invoices</option>
                 <option>Draft</option>
                 <option>Pending</option>
@@ -258,60 +193,60 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="rounded-md border">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Invoice
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Client
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <div className="overflow-x-auto rounded-md border">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Invoice
+                  </th>
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Client
+                  </th>
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
                     Issue Date
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Due Date
-                      </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  </th>
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell">
+                    Due Date
+                  </th>
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Amount
                   </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Status
-                      </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
                 {invoices.map((invoice) => (
                   <tr key={invoice.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-3 py-4 whitespace-nowrap">
                       <div className="flex items-center gap-2">
                         <FileText className="h-4 w-4 text-gray-500" />
                         <span className="font-medium">{invoice.id}</span>
-              </div>
+                      </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-3 py-4 whitespace-nowrap">
                       <div>
                         <div className="font-medium">{invoice.client}</div>
-                        <div className="text-sm text-gray-500">
+                        <div className="text-xs text-gray-500 md:hidden">
                           {invoice.email}
-      </div>
-    </div>
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-3 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">
                       {invoice.date}
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    </td>
+                    <td className="px-3 py-4 whitespace-nowrap text-sm text-gray-500 hidden lg:table-cell">
                       {invoice.date}
-      </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    </td>
+                    <td className="px-3 py-4 whitespace-nowrap text-sm font-medium">
                       {invoice.amount}
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap">
+                    </td>
+                    <td className="px-3 py-4 whitespace-nowrap">
                       <Badge
                         variant={
                           invoice.status === "paid"
@@ -320,17 +255,18 @@ export default function Dashboard() {
                             ? "secondary"
                             : "destructive"
                         }
+                        className="text-xs"
                       >
                         {invoice.status.charAt(0).toUpperCase() +
                           invoice.status.slice(1)}
                       </Badge>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <Button variant="ghost" size="icon">
+                    <td className="px-3 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <Button variant="ghost" size="icon" className="h-8 w-8">
                         <MoreVertical className="h-4 w-4" />
                       </Button>
-      </td>
-    </tr>
+                    </td>
+                  </tr>
                 ))}
               </tbody>
             </table>
