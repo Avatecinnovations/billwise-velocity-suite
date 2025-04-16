@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, Outlet, useNavigate } from "react-router-dom";
 import {
@@ -30,6 +29,7 @@ import { Logo } from "@/assets/images/logo";
 import { APP_NAME } from "@/lib/constants";
 import { useIsMobile } from "@/hooks/use-mobile";
 import TopNavbar from "./TopNavbar";
+import { Sidebar } from "./Sidebar";
 
 interface NavItem {
   icon: React.ReactNode;
@@ -192,117 +192,43 @@ const DashboardLayout = () => {
   );
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      {/* Mobile sidebar backdrop */}
-      {sidebarOpen && (
-        <div 
-          className="fixed inset-0 bg-black/30 z-40 md:hidden" 
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
-      {/* Mobile sidebar */}
-      <div
-        className={cn(
-          "fixed inset-y-0 left-0 z-50 w-64 bg-white transform transition-transform duration-200 ease-in-out md:hidden",
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        )}
+    <div className="flex min-h-screen bg-background">
+      {/* Mobile Sidebar Toggle */}
+      <Button
+        variant="ghost"
+        size="icon"
+        className="fixed top-4 left-4 z-50 md:hidden"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
       >
-        <div className="flex flex-col h-full">
-          <div className="h-16 border-b flex items-center justify-between px-6">
-            <Link to="/" className="flex items-center gap-2">
-              <Logo className="h-8 w-auto" />
-            </Link>
-            <button
-              onClick={() => setSidebarOpen(false)}
-              className="p-1 rounded-full hover:bg-gray-100"
-            >
-              <X className="h-5 w-5" />
-            </button>
-          </div>
-          <div className="flex-1 overflow-y-auto">
-            <SidebarContent />
-          </div>
-        </div>
-      </div>
+        <MenuIcon className="h-6 w-6" />
+      </Button>
 
-      {/* Desktop sidebar */}
-      <div className="hidden md:block w-64 border-r bg-white sticky top-0 h-screen">
-        <SidebarContent />
+      {/* Sidebar */}
+      <div
+        className={`fixed inset-y-0 left-0 z-40 w-64 transform transition-transform duration-200 ease-in-out md:translate-x-0 ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <Sidebar />
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
-        {/* Top Bar */}
-        <div className="sticky top-0 z-10 bg-white border-b md:hidden">
-          <div className="flex h-16 items-center px-4">
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="p-2 rounded-md hover:bg-gray-100 mr-4"
-            >
-              <MenuIcon className="h-5 w-5" />
-            </button>
-            <div className="flex-1 flex justify-center">
-              <Logo className="h-8 w-auto" />
-            </div>
-            <div className="ml-auto">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="relative h-8 w-8 rounded-full"
-                  >
-                    {onboardingData?.profilePicture ? (
-                      <img
-                        src={onboardingData.profilePicture}
-                        alt="Profile"
-                        className="h-8 w-8 rounded-full object-cover"
-                      />
-                    ) : (
-                      <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
-                        <Users className="h-4 w-4" />
-                      </div>
-                    )}
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>
-                    {onboardingData?.fullName || user?.email}
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link to="/settings" className="flex items-center">
-                      <Settings className="mr-2 h-4 w-4" />
-                      Settings
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/help" className="flex items-center">
-                      <HelpCircle className="mr-2 h-4 w-4" />
-                      Help
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => signOut()}>
-                    <LogOut className="mr-2 h-4 w-4" />
-                    Log out
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+      <div className="flex-1 md:pl-64">
+        <TopNavbar />
+        <main className="pt-16 min-h-screen">
+          <div className="container mx-auto p-4 md:p-6">
+            <Outlet />
           </div>
-        </div>
-
-        {/* Desktop nav bar */}
-        <div className="hidden md:block">
-          <TopNavbar />
-        </div>
-
-        {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto p-4 md:p-6">
-          <Outlet />
         </main>
       </div>
+
+      {/* Mobile Sidebar Backdrop */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-black/50 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
     </div>
   );
 };
