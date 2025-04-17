@@ -1,14 +1,11 @@
-
 import { Link } from "react-router-dom";
 import { BadgeCustom } from "../ui/badge-custom";
-
 export function Hero() {
-  return (
-    <section className="bg-brand-dark text-white py-16 md:py-24">
+  return <section className="bg-brand-dark text-white py-16 md:py-24">
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <BadgeCustom variant="yellow" className="mb-2">30-DAY FREE TRIAL</BadgeCustom>
+            <BadgeCustom variant="yellow" className="mb-2">14-DAY FREE TRIAL</BadgeCustom>
             <h1 className="text-5xl md:text-6xl font-bold leading-tight">
               Solving all <br />your invoicing <br />problems here
             </h1>
@@ -38,11 +35,7 @@ export function Hero() {
                 </div>
               </div>
               <div className="mb-6">
-                <input 
-                  type="text" 
-                  placeholder="search@clientemail.com" 
-                  className="w-full p-3 border border-gray-300 rounded-lg"
-                />
+                <input type="text" placeholder="search@clientemail.com" className="w-full p-3 border border-gray-300 rounded-lg" />
               </div>
               <button className="w-full bg-brand-primary text-white py-3 rounded-lg font-medium">
                 Pay Now
@@ -78,6 +71,5 @@ export function Hero() {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 }
